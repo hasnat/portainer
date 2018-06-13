@@ -37,6 +37,7 @@ type (
 	Status struct {
 		Authentication     bool   `json:"Authentication"`
 		EndpointManagement bool   `json:"EndpointManagement"`
+		CommandManagement  bool   `json:"CommandManagement"`
 		Analytics          bool   `json:"Analytics"`
 		Version            string `json:"Version"`
 	}
@@ -188,6 +189,19 @@ type (
 		TLSKeyPath    string `json:"TLSKey,omitempty"`
 	}
 
+	// CommandID represents an endpoint identifier.
+	CommandID int
+
+	// Command represents a command
+	// to connect to it.
+	Command struct {
+		ID              CommandID          `json:"Id"`
+		Name            string              `json:"Name"`
+		Image             string              `json:"Image"`
+		Command       string              `json:"Command"`
+
+	}
+
 	// EndpointExtension represents a extension associated to an endpoint.
 	EndpointExtension struct {
 		Type EndpointExtensionType `json:"Type"`
@@ -299,6 +313,16 @@ type (
 		UpdateEndpoint(ID EndpointID, endpoint *Endpoint) error
 		DeleteEndpoint(ID EndpointID) error
 		Synchronize(toCreate, toUpdate, toDelete []*Endpoint) error
+	}
+
+	// CommandService represents a service for managing endpoint data.
+	CommandService interface {
+		Command(ID CommandID) (*Command, error)
+		Commands() ([]Command, error)
+		CreateCommand(command *Command) error
+		UpdateCommand(ID CommandID, command *Command) error
+		DeleteCommand(ID CommandID) error
+		Synchronize(toCreate, toUpdate, toDelete []*Command) error
 	}
 
 	// RegistryService represents a service for managing registry data.

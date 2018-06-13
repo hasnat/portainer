@@ -121,6 +121,28 @@ angular.module('portainer.app', [])
     }
   };
 
+  var commands = {
+    name: 'portainer.commands',
+    url: '/commands',
+    views: {
+      'content@': {
+        templateUrl: 'app/portainer/views/commands/commands.html',
+        controller: 'CommandsController'
+      }
+    }
+  };
+
+  var command = {
+    name: 'portainer.commands.command',
+    url: '/:id',
+    views: {
+      'content@': {
+        templateUrl: 'app/portainer/views/commands/edit/command.html',
+        controller: 'CommandController'
+      }
+    }
+  };
+
   var endpointAccess = {
     name: 'portainer.endpoints.endpoint.access',
     url: '/access',
@@ -250,6 +272,8 @@ angular.module('portainer.app', [])
   $stateRegistryProvider.register(init);
   $stateRegistryProvider.register(initEndpoint);
   $stateRegistryProvider.register(initAdmin);
+  $stateRegistryProvider.register(commands);
+  $stateRegistryProvider.register(command);
   $stateRegistryProvider.register(endpoints);
   $stateRegistryProvider.register(endpoint);
   $stateRegistryProvider.register(endpointAccess);

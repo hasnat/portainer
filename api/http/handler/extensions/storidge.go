@@ -52,6 +52,13 @@ func (handler *StoridgeHandler) proxyRequestsToStoridgeAPI(w http.ResponseWriter
 		return
 	}
 
+	commandID := portainer.CommandID(parsedID)
+	command, err := handler.CommandService.Command(commandID)
+	if err != nil {
+		httperror.WriteErrorResponse(w, err, http.StatusInternalServerError, handler.Logger)
+		return
+	}
+
 	tokenData, err := security.RetrieveTokenData(r)
 	if err != nil {
 		httperror.WriteErrorResponse(w, err, http.StatusInternalServerError, handler.Logger)

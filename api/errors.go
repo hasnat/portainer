@@ -43,6 +43,10 @@ const (
 	ErrEndpointNotFound     = Error("Endpoint not found")
 	ErrEndpointAccessDenied = Error("Access denied to endpoint")
 )
+const (
+	ErrCommandNotFound     = Error("Command not found")
+	ErrCommandAccessDenied = Error("Access denied to command")
+)
 
 // Registry errors.
 const (
@@ -61,6 +65,10 @@ const (
 const (
 	ErrEndpointExtensionNotSupported      = Error("This extension is not supported")
 	ErrEndpointExtensionAlreadyAssociated = Error("This extension is already associated to the endpoint")
+)
+const (
+	ErrCommandExtensionNotSupported      = Error("This extension is not supported")
+	ErrCommandExtensionAlreadyAssociated = Error("This extension is already associated to the endpoint")
 )
 
 // Version errors.

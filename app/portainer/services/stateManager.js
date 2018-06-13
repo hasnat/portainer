@@ -39,6 +39,7 @@ function StateManagerFactory($q, SystemService, InfoHelper, LocalStorage, Settin
    state.application.authentication = status.Authentication;
    state.application.analytics = status.Analytics;
    state.application.endpointManagement = status.EndpointManagement;
+   state.application.commandManagement = status.CommandManagement;
    state.application.version = status.Version;
    state.application.logo = settings.LogoURL;
    state.application.displayDonationHeader = settings.DisplayDonationHeader;

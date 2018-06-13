@@ -47,6 +47,16 @@ func UnmarshalEndpoint(data []byte, endpoint *portainer.Endpoint) error {
 	return json.Unmarshal(data, endpoint)
 }
 
+// MarshalCommand encodes an command to binary format.
+func MarshalCommand(command *portainer.Command) ([]byte, error) {
+	return json.Marshal(command)
+}
+
+// UnmarshalCommand decodes an command from a binary data.
+func UnmarshalCommand(data []byte, command *portainer.Command) error {
+	return json.Unmarshal(data, command)
+}
+
 // MarshalStack encodes a stack to binary format.
 func MarshalStack(stack *portainer.Stack) ([]byte, error) {
 	return json.Marshal(stack)

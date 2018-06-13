@@ -17,11 +17,13 @@ type Server struct {
 	AssetsPath             string
 	AuthDisabled           bool
 	EndpointManagement     bool
+	CommandManagement      bool
 	Status                 *portainer.Status
 	UserService            portainer.UserService
 	TeamService            portainer.TeamService
 	TeamMembershipService  portainer.TeamMembershipService
 	EndpointService        portainer.EndpointService
+	CommandService         portainer.CommandService
 	ResourceControlService portainer.ResourceControlService
 	SettingsService        portainer.SettingsService
 	CryptoService          portainer.CryptoService
@@ -71,15 +73,20 @@ func (server *Server) Start() error {
 	var templatesHandler = handler.NewTemplatesHandler(requestBouncer)
 	templatesHandler.SettingsService = server.SettingsService
 	var dockerHandler = handler.NewDockerHandler(requestBouncer)
-	dockerHandler.EndpointService = server.EndpointService
+//	dockerHandler.CommandService = server.CommandService
 	dockerHandler.TeamMembershipService = server.TeamMembershipService
 	dockerHandler.ProxyManager = proxyManager
 	var websocketHandler = handler.NewWebSocketHandler()
 	websocketHandler.EndpointService = server.EndpointService
+//	websocketHandler.CommandService = server.CommandService
 	var endpointHandler = handler.NewEndpointHandler(requestBouncer, server.EndpointManagement)
 	endpointHandler.EndpointService = server.EndpointService
 	endpointHandler.FileService = server.FileService
 	endpointHandler.ProxyManager = proxyManager
+	var commandHandler = handler.NewCommandHandler(requestBouncer, server.CommandManagement)
+	commandHandler.CommandService = server.CommandService
+	commandHandler.FileService = server.FileService
+	commandHandler.ProxyManager = proxyManager
 	var registryHandler = handler.NewRegistryHandler(requestBouncer)
 	registryHandler.RegistryService = server.RegistryService
 	var dockerHubHandler = handler.NewDockerHubHandler(requestBouncer)
@@ -92,6 +99,7 @@ func (server *Server) Start() error {
 	stackHandler.FileService = server.FileService
 	stackHandler.StackService = server.StackService
 	stackHandler.EndpointService = server.EndpointService
+//	stackHandler.CommandService = server.CommandService
 	stackHandler.ResourceControlService = server.ResourceControlService
 	stackHandler.StackManager = server.StackManager
 	stackHandler.GitService = server.GitService
@@ -99,9 +107,11 @@ func (server *Server) Start() error {
 	stackHandler.DockerHubService = server.DockerHubService
 	var extensionHandler = handler.NewExtensionHandler(requestBouncer)
 	extensionHandler.EndpointService = server.EndpointService
+//	extensionHandler.CommandService = server.CommandService
 	extensionHandler.ProxyManager = proxyManager
 	var storidgeHandler = extensions.NewStoridgeHandler(requestBouncer)
 	storidgeHandler.EndpointService = server.EndpointService
+//	storidgeHandler.CommandService = server.CommandService
 	storidgeHandler.TeamMembershipService = server.TeamMembershipService
 	storidgeHandler.ProxyManager = proxyManager
 
@@ -111,6 +121,7 @@ func (server *Server) Start() error {
 		TeamHandler:           teamHandler,
 		TeamMembershipHandler: teamMembershipHandler,
 		EndpointHandler:       endpointHandler,
+		CommandHandler:        commandHandler,
 		RegistryHandler:       registryHandler,
 		DockerHubHandler:      dockerHubHandler,
 		ResourceHandler:       resourceHandler,

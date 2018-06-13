@@ -2137,6 +2137,10 @@ definitions:
         type: "boolean"
         example: true
         description: "Is endpoint management enabled"
+      CommandManagement:
+        type: "boolean"
+        example: true
+        description: "Is command management enabled"
       Analytics:
         type: "boolean"
         example: true

@@ -18,6 +18,7 @@ type Handler struct {
 	TeamHandler           *TeamHandler
 	TeamMembershipHandler *TeamMembershipHandler
 	EndpointHandler       *EndpointHandler
+	CommandHandler        *CommandHandler
 	RegistryHandler       *RegistryHandler
 	DockerHubHandler      *DockerHubHandler
 	ExtensionHandler      *ExtensionHandler
